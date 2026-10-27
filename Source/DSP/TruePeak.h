@@ -20,12 +20,13 @@ namespace avel::dsp
         TruePeakDetector()
         {
             constexpr int N = phases * tapsPerPhase;
+            constexpr double pi = 3.14159265358979323846;
             const double centre = (N - 1) * 0.5;
             std::array<double, N> h {};
             for (int n = 0; n < N; ++n)
             {
                 const double t = (n - centre) / phases;
-                const double sinc = std::abs (t) < 1.0e-9 ? 1.0 : std::sin (M_PI * t) / (M_PI * t);
+                const double sinc = std::abs (t) < 1.0e-9 ? 1.0 : std::sin (pi * t) / (pi * t);
                 // Kaiser window, beta 7
                 const double r = (n - centre) / centre;
                 const double w = bessel0 (7.0 * std::sqrt (std::max (0.0, 1.0 - r * r))) / bessel0 (7.0);
